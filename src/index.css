@@ -1,7 +1,15 @@
 
-.cardWapper{
-   /* display: grid !important;
-   grid-template-rows: subgrid !important; */
+
+.titleWapper{
+   font-size: 1.2rem !important;
+}
+
+.titleDiscription{
+   font-size: .9rem !important;
+}
+
+body{
+   font-family: "Mukta", sans-serif;
 }
 
 .comman-height{

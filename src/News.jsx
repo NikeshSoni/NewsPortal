@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { fetchNews } from './newsService';
-import Header from './compnents/Header'
+import Header from './compnents/Header';
 import { Button, Card, CardGroup } from 'react-bootstrap';
 
-const News = ({setStoreApi , filterData}) => {
+const News = ({ setStoreApi, filterData }) => {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [error, setError] = useState(null);
@@ -17,18 +17,16 @@ const News = ({setStoreApi , filterData}) => {
             })
             .catch((error) => {
                 console.error("Error fetching news:", error);
-                // setLoading(false);
-                // setLoading(false)
                 setError(error);;
-               
+
             })
     }, [page]);
 
     const handleNextPage = () => setPage((prevPage) => prevPage + 1);
     const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
 
-  if (loading) return <h2>Loading...</h2>;
-  if (loading) return <p>Error: {error.message}</p>;
+    if (loading) return <h2>Loading...</h2>;
+    if (loading) return <p>Error: {error.message}</p>;
 
 
     return (
@@ -38,7 +36,8 @@ const News = ({setStoreApi , filterData}) => {
             ) : (
                 <div className='d-flex flex-wrap gap-4 my-5 contsiner justify-content-center'>
                     {filterData.map((article, index) => (
-                        <Card key={index} className='cardWapper col-3'>
+
+                        <Card key={index} className='cardWapper card my-2 col-10 col-md-5 col-lg-3'>
                             <div className='comman-height'>
                                 <Card.Img
                                     variant="top"
@@ -48,19 +47,24 @@ const News = ({setStoreApi , filterData}) => {
                             </div>
 
                             <Card.Body>
-                                <Card.Title>{article.title}</Card.Title>
-                                <Card.Text>
-                                    {article.description}
+                                <Card.Title className='titleWapper'>{article.title}</Card.Title>
+                                <Card.Text className='titleDiscription'>
+                                    {article.description === null ? null : <details>
+                                        <summary>Read More</summary>
+                                        <p>{article.description} </p>
+                                    </details>}
+                                    {/* <details>
+                                      <summary>Read More</summary>
+                                      <p>{article.description}</p>
+                                </details> */}
+
                                 </Card.Text>
                             </Card.Body>
-                            <Card.Footer>
-                                {/* <small className="text-muted">Last updated 3 mins ago</small> */}
-                                <Button variant="primary">
-                                    <a href={article.url}
-                                        className='text-white text-decoration-none'
-                                        target="_blank" rel="noopener noreferrer ">Read more</a>
-                                </Button>
-                            </Card.Footer>
+                            <button className='card-button'>
+                                <a href={article.url}
+                                    className='text-white text-decoration-none'
+                                    target="_blank" rel="noopener noreferrer ">Read more</a>
+                            </button>
                         </Card>
                     ))}
                 </div>

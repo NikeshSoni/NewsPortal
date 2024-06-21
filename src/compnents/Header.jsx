@@ -30,10 +30,10 @@ function Header() {
 
     return (
         <>
-            <div className={bgChange ? 'light-mode container w-100' : 'darkMode container w-100'} >
-                <Navbar expand="lg" className="bg-body-tertiary w-100">
+            <div className={bgChange ? 'light-mode container w-100' : 'darkMode container w-100 '} >
+                <Navbar expand="lg" className="bg-body-tertiary shadow-sm w-100 rounded">
                     <Container fluid>
-                        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+                        <Navbar.Brand href="#">India News </Navbar.Brand>
                         <Navbar.Toggle aria-controls="navbarScroll" />
                         <Navbar.Collapse id="navbarScroll">
                             <Nav
