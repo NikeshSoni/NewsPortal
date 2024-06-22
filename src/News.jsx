@@ -24,7 +24,7 @@ const News = ({ setStoreApi, filterData }) => {
         //     })
         const main = async () => {
             try {
-                const store = await fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=603cac94f6754be3bcd0791c3f6ba9f6')
+                const store = await fetch('https://gnews.io/api/v4/search?q=example&apikey=3119b0cc86c362b702f0755e9c97f5e0')
                 const mainData = await store.json()
                 const storeData = setAddStart(mainData.articles);
                 setLoading(false);
@@ -37,7 +37,8 @@ const News = ({ setStoreApi, filterData }) => {
         main()
     }, []);
 
-    console.log(addStart.urlToImage);
+    
+    // console.log(addStart.articles);
 
     const handleNextPage = () => setPage((prevPage) => prevPage + 1);
     const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -45,14 +46,13 @@ const News = ({ setStoreApi, filterData }) => {
     if (loading) return <h2>Loading...</h2>;
     if (loading) return <p>Error: {error.message}</p>;
 
-
     return (
         <div>
             {loading ? (
                 <p>{loading}</p>
             ) : (
                 <div className='d-flex flex-wrap gap-4 my-5 contsiner justify-content-center'>
-                    {addStart.map((article, index) => (
+                    {addStart && addStart.map((article, index) => (
                         <Card key={index} className='cardWapper card my-2 col-10 col-md-5 col-lg-3'>
                             <div className='comman-height'>
                                 <Card.Img
@@ -60,7 +60,7 @@ const News = ({ setStoreApi, filterData }) => {
                                     // src={article.urlToImage} />
                                     src={article.image === null
                                         ? 'https://loremflickr.com/640/360'
-                                        : article.urlToImage} />
+                                        : article.image} />
                             </div>
                             <Card.Body>
                                 <Card.Title className='titleWapper'>{article.title}</Card.Title>
