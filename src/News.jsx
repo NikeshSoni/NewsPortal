@@ -22,7 +22,7 @@ const News = ({ setStoreApi, filterData }) => {
         //     })
         const main = async () => {
             try {
-                const store = await fetch('https://fakestoreapi.com/products')
+                const store = await fetch('https://newsdata.io/api/1/news?apikey=pub_471107aafb3f87b15e2a652d0d6b4dbddced0&q=News&country=in&language=en&category=business,education,entertainment ')
                 const mainData = await store.json()
                 const storeData = setAddStart(mainData);
                 setLoading(false);
@@ -33,6 +33,8 @@ const News = ({ setStoreApi, filterData }) => {
         }
         main()
     }, []);
+
+    console.log(addStart);
 
     const handleNextPage = () => setPage((prevPage) => prevPage + 1);
     const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -47,12 +49,12 @@ const News = ({ setStoreApi, filterData }) => {
                 <p>{loading}</p>
             ) : (
                 <div className='d-flex flex-wrap gap-4 my-5 contsiner justify-content-center'>
-                    {addStart.map((article, index) => (
+                    {addStart.results.map((article, index) => (
                         <Card key={index} className='cardWapper card my-2 col-10 col-md-5 col-lg-3'>
                             <div className='comman-height'>
                                 <Card.Img
                                     variant="top"
-                                    src={article.image} />
+                                    src={article.image_url} />
                                     {/* // src={article.image === null
                                     //     ? 'https://loremflickr.com/640/360'
                                     //     : article.urlToImage} /> */}
