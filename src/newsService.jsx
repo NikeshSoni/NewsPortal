@@ -12,6 +12,7 @@ export const fetchNews = (page) => {
       apiKey: API_KEY,
       page: page,
       pageSize: 9, // Adjust page size as needed
+      Authorization:API_KEY
     },
   });
 };
