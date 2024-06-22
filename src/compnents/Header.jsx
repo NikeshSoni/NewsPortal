@@ -10,8 +10,6 @@ function Header() {
     const [isTitle, setIsTitle] = useState(false);
     const [bgChange , setBgChange] = useState()
 
-
-
     useEffect(() => {
         setFilterData(
             storeApi.filter((data) =>

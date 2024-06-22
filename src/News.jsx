@@ -1,26 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { fetchNews } from './newsService';
-import Header from './compnents/Header';
+// import Header from './compnents/Header';
 import { Button, Card, CardGroup } from 'react-bootstrap';
 
 const News = ({ setStoreApi, filterData }) => {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [error, setError] = useState(null);
+    const [addStart, setAddStart] = useState([])
 
     useEffect(() => {
         setLoading(true);
-        fetchNews(page)
-            .then((response) => {
-                setStoreApi(response.data.articles);
+        // fetch('https://newsapi.org/v2/everything?q=keyword&apiKey=603cac94f6754be3bcd0791c3f6ba9f6')
+        //     .then((response) => {
+        //         setStoreApi(response.data.articles);
+        //         setLoading(false);
+        //     })
+        //     .catch((error) => {
+        //         console.error("Error fetching news:", error);
+        //         setError(error);;
+        //     })
+        const main = async () => {
+            try {
+                const store = await fetch('https://newsapi.org/v2/everything?q=keyword&apiKey=603cac94f6754be3bcd0791c3f6ba9f6')
+                const mainData = await store.json()
+                const storeData = setAddStart(mainData);
                 setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching news:", error);
-                setError(error);;
+                console.log(storeData);
+            } catch (error) {
+                console.log(error , 'hii');
+            }
+        }
+        main()
+    }, []);
 
-            })
-    }, [page]);
+    console.log(addStart);
 
     const handleNextPage = () => setPage((prevPage) => prevPage + 1);
     const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
@@ -35,7 +49,7 @@ const News = ({ setStoreApi, filterData }) => {
                 <p>Loading...</p>
             ) : (
                 <div className='d-flex flex-wrap gap-4 my-5 contsiner justify-content-center'>
-                    {filterData.map((article, index) => (
+                    {addStart.articles.map((article, index) => (
 
                         <Card key={index} className='cardWapper card my-2 col-10 col-md-5 col-lg-3'>
                             <div className='comman-height'>
@@ -53,10 +67,6 @@ const News = ({ setStoreApi, filterData }) => {
                                         <summary>Read More</summary>
                                         <p>{article.description} </p>
                                     </details>}
-                                    {/* <details>
-                                      <summary>Read More</summary>
-                                      <p>{article.description}</p>
-                                </details> */}
 
                                 </Card.Text>
                             </Card.Body>
