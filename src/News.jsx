@@ -22,7 +22,7 @@ const News = ({ setStoreApi, filterData }) => {
         //     })
         const main = async () => {
             try {
-                const store = await fetch('https://newsapi.org/v2/everything?q=keyword&apiKey=603cac94f6754be3bcd0791c3f6ba9f6')
+                const store = await fetch('https://fakestoreapi.com/products')
                 const mainData = await store.json()
                 const storeData = setAddStart(mainData);
                 setLoading(false);
@@ -34,8 +34,6 @@ const News = ({ setStoreApi, filterData }) => {
         main()
     }, []);
 
-    console.log(addStart);
-
     const handleNextPage = () => setPage((prevPage) => prevPage + 1);
     const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
 
@@ -46,18 +44,18 @@ const News = ({ setStoreApi, filterData }) => {
     return (
         <div>
             {loading ? (
-                <p>Loading...</p>
+                <p>{loading}</p>
             ) : (
                 <div className='d-flex flex-wrap gap-4 my-5 contsiner justify-content-center'>
-                    {addStart.articles.map((article, index) => (
-
+                    {addStart.map((article, index) => (
                         <Card key={index} className='cardWapper card my-2 col-10 col-md-5 col-lg-3'>
                             <div className='comman-height'>
                                 <Card.Img
                                     variant="top"
-                                    src={article.urlToImage === null
-                                        ? 'https://loremflickr.com/640/360'
-                                        : article.urlToImage} />
+                                    src={article.image} />
+                                    {/* // src={article.image === null
+                                    //     ? 'https://loremflickr.com/640/360'
+                                    //     : article.urlToImage} /> */}
                             </div>
 
                             <Card.Body>
@@ -70,11 +68,11 @@ const News = ({ setStoreApi, filterData }) => {
 
                                 </Card.Text>
                             </Card.Body>
-                            <button className='card-button'>
+                            {/* <button className='card-button'>
                                 <a href={article.url}
                                     className='text-white text-decoration-none'
                                     target="_blank" rel="noopener noreferrer ">Read more</a>
-                            </button>
+                            </button> */}
                         </Card>
                     ))}
                 </div>
