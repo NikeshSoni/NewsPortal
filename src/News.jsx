@@ -9,7 +9,10 @@ const News = ({ setStoreApi, filterData }) => {
     const [error, setError] = useState(null);
     const [addStart, setAddStart] = useState([])
 
+    // const [pushVal , setPushVal ] = useState([])
     // console.log(filterData);
+
+    // setPushVal(filterData)
 
     useEffect(() => {
         setLoading(true);
@@ -24,7 +27,7 @@ const News = ({ setStoreApi, filterData }) => {
         //     })
         const main = async () => {
             try {
-                const store = await fetch('https://gnews.io/api/v4/search?q=example&apikey=3119b0cc86c362b702f0755e9c97f5e0')
+                const store = await fetch('https://newsapi.org/v2/everything?q=keyword&apiKey=603cac94f6754be3bcd0791c3f6ba9f6')
                 const mainData = await store.json()
                 const storeData = setAddStart(mainData.articles);
                 setLoading(false);
@@ -38,10 +41,10 @@ const News = ({ setStoreApi, filterData }) => {
     }, []);
 
     
-    // console.log(addStart.articles);
+    console.log(addStart);
 
-    const handleNextPage = () => setPage((prevPage) => prevPage + 1);
-    const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
+    // const handleNextPage = () => setPage((prevPage) => prevPage + 1);
+    // const handlePrevPage = () => setPage((prevPage) => Math.max(prevPage - 1, 1));
 
     if (loading) return <h2>Loading...</h2>;
     if (loading) return <p>Error: {error.message}</p>;
@@ -58,9 +61,9 @@ const News = ({ setStoreApi, filterData }) => {
                                 <Card.Img
                                     variant="top"
                                     // src={article.urlToImage} />
-                                    src={article.image === null
+                                    src={article.urlToImage === null
                                         ? 'https://loremflickr.com/640/360'
-                                        : article.image} />
+                                        : article.urlToImage} />
                             </div>
                             <Card.Body>
                                 <Card.Title className='titleWapper'>{article.title}</Card.Title>
@@ -82,7 +85,7 @@ const News = ({ setStoreApi, filterData }) => {
                 </div>
             )}
 
-            <div className='text-center d-flex gap-4 justify-content-center my-3'>
+            {/* <div className='text-center d-flex gap-4 justify-content-center my-3'>
                 <Button
                     onClick={handlePrevPage}
                     disabled={page === 1}
@@ -92,7 +95,7 @@ const News = ({ setStoreApi, filterData }) => {
                 <Button
                     onClick={handleNextPage}
                     variant="secondary">Next</Button>
-            </div>
+            </div> */}
         </div>
     );
 };

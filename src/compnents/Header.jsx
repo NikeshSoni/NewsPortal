@@ -7,6 +7,7 @@ function Header() {
     const [storeApi, setStoreApi] = useState([]);
     const [filter, setFilter] = useState('');
     const [filterData, setFilterData] = useState([]);
+    
     const [isTitle, setIsTitle] = useState(false);
     const [bgChange , setBgChange] = useState()
 
